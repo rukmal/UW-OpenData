@@ -1,12 +1,18 @@
 import json
 from bs4 import BeautifulSoup
-import urllib2
-import urllib3
+import requests
 
 class Directory(object):
-'''
-Author: Rukmal Weerawarana
-Description: API to get data from the University of Washington official directory.
-'''
+	'''
+	Author: Rukmal Weerawarana
+	Description: API to get data from the University of Washington official directory.
+	'''
 	def __init__(self):
 		self.DIRECTORY_URL = 'http://washington.edu/home/peopledir'
+
+	def findName(self):
+		httprequest = {'term':'rukmal', 'method':'name', 'whichdir':'both', 'length':'sum'}
+		data = requests.post(self.DIRECTORY_URL, params=httprequest)
+		print data.text
+directory = Directory()
+directory.findName()

@@ -1,2 +1,1 @@
-from dictionary import Dictionary
-from calendar import Calendar
+from directory import Directory
