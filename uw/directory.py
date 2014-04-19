@@ -12,8 +12,12 @@ class Directory(object):
 		self.DIRECTORY_URL = 'http://washington.edu/home/peopledir'
 
 	def findName(self):
-		httprequest = {'term':' ', 'method':'name', 'whichdir':'both', 'length':'sum'}
+		httprequest = {'term':'', 'method':'name', 'whichdir':'both', 'length':'sum'}
 		data = requests.post(self.DIRECTORY_URL, params=httprequest)
 		print data.text
+
+
+directory = Directory()
+directory.findName()
 
 	# def __makeRequest(self, request):
