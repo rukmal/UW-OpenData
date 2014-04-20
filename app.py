@@ -17,7 +17,8 @@ def hello():
 	programInfo['authors'] = 'Amit Burstein and Rukmal Weerawarana'
 	programInfo['name'] = 'UW Open Data API'
 	programInfo['version'] = '0.0.1'
-	programInfo['project_url'] = 'http://github.com/rukmal/UW-OpenData'
+	programInfo['project_url'] = 'http://uwopendata.herokuapp.com'
+	programInfo['source_url'] = 'http://github.com/rukmal/UW-OpenData'
 	programInfo['description'] = 'RESTful API for (hopefully) all UW online services'
 	return jsonify(programInfo)
 

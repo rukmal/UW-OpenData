@@ -47,4 +47,4 @@ class Directory(object):
 		httprequest['method'] = database
 		httprequest['whichdir'] = type
 		data = requests.post(self.DIRECTORY_URL, params=httprequest)
-		print data.text
+		return data.text
