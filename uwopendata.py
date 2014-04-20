@@ -28,7 +28,7 @@ def courseget(code):
 
 @app.route('/directory/<searchquery>', methods=['GET'])
 def directoryget(searchquery):
-	return directory.search_directory(query)
+	return directory.search_directory(searchquery)
 
 if __name__ == '__main__':
 	app.run(debug=True)

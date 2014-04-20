@@ -11,7 +11,7 @@ class Directory(object):
 	def __init__(self):
 		self.DIRECTORY_URL = 'http://washington.edu/home/peopledir'
 
-	def search_directory(self, name, type, database, length):
+	def search_directory(self, name, querytype, database, length):
 		'''Function to search the University of Washington directory.
 		Args:
 			name {String}
@@ -39,12 +39,30 @@ class Directory(object):
 					full - Full listing
 						Note: Full listing returns the name, phone number (if any),
 							class standing, department and email
-
+		Returns:
+			JSON array of all results found for a given search
+		Raises:
+			ValueError
+			ConnectionError
+			HTTPError
+			Timeout
 		'''
 		# Constructing the HTTP request
 		httprequest = dict()
 		httprequest['term'] = name
-		httprequest['method'] = database
-		httprequest['whichdir'] = type
+		httprequest['method'] = querytype
+		httprequest['whichdir'] = database
+		httprequest['length'] = length
+
+		# sending POST request to directory
 		data = requests.post(self.DIRECTORY_URL, params=httprequest)
-		return data.text
+		bsdata = BeautifulSoup(data.text)
+		if length == 'full':
+			persondata = bsdata.find_all('div', attrs={'class':'indent long'})
+			print persondata
+		elif length == 'sum':
+			persondata = bsdata.find_all('table', attrs={'class':'table table-bordered table-striped table-condensed'})
+			print persondata
+		else:
+			raise ValueError
+		return None
