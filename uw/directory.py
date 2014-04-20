@@ -23,6 +23,7 @@ class Directory(object):
 		Returns:
 			{str}	Prettified version of the input name
 		'''
+		return name.capitalize()
 
 	def search_directory(self, name, querytype, database):
 		'''Function to search the University of Washington directory.
@@ -44,7 +45,15 @@ class Directory(object):
 					staff - Faculty/Staff listings
 					student - Student listings
 		Returns:
-			{str}	JSON array of all results found for a given search
+			{str}	JSON array of all results found for a given search.
+			The JSON array will have the following possible fields.
+			[
+				{
+					"name": <name>,
+					"email": <email>,
+
+				}
+			]
 		Raises:
 			ValueError
 			ConnectionError
@@ -82,7 +91,7 @@ class Directory(object):
 			try:
 				persondata['email'] = parsedvcard.email.value
 			except:
-				persondata['email'] = None
+				pass
 			# Adding person to the output array
 			output.append(persondata)
 		# JSONifying and returning the output

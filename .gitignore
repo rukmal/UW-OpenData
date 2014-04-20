@@ -1,5 +1,8 @@
 *.py[cod]
 
+# Temporary
+test.py
+
 # C extensions
 *.so
 
