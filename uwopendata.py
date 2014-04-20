@@ -16,7 +16,7 @@ def hello():
 	programInfo = dict()
 	programInfo['authors'] = 'Amit Burstein and Rukmal Weerawarana'
 	programInfo['name'] = 'UW Open Data API'
-	programInfo['version'] = '0.0.1'
+	programInfo['version'] = '1.0.0'
 	programInfo['project_url'] = 'http://uwopendata.herokuapp.com'
 	programInfo['source_url'] = 'http://github.com/rukmal/UW-OpenData'
 	programInfo['description'] = 'RESTful API for (hopefully) all UW online services'
