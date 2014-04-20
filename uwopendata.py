@@ -20,6 +20,7 @@ def hello():
 	programInfo['project_url'] = 'http://uwopendata.herokuapp.com'
 	programInfo['source_url'] = 'http://github.com/rukmal/UW-OpenData'
 	programInfo['description'] = 'RESTful API for (hopefully) all UW online services'
+	programInfo['license'] = 'MIT'
 	return jsonify(programInfo)
 
 @app.route('/coursecatalog/<code>', methods=['GET'])
