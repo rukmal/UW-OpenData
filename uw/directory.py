@@ -14,12 +14,22 @@ class Directory(object):
 		# Note: Trailing backslash is REQUIRED
 		self.DIRECTORY_URL = 'http://washington.edu/home/peopledir/'
 
+	def __prettifyName(self, name):
+		'''Function to prettify and standardize format of a name
+		eg: 
+		Args:
+			name {str}
+				Name of the person
+		Returns:
+			{str}	Prettified version of the input name
+		'''
+
 	def search_directory(self, name, querytype, database):
 		'''Function to search the University of Washington directory.
 		Args:
-			name {String}
+			name {str}
 				Name of the person
-			queryType {String}
+			queryType {str}
 				Field that should be searched
 				Valid options:
 					name - Name of the person
@@ -27,14 +37,14 @@ class Directory(object):
 					mail - Email of the person
 					box - Box of the person
 					phone - Phone number of the person
-			database {String}
+			database {str}
 				Database in which the query should be run in.
 				Valid options:
 					both - Student and Faculty/Staff listings
 					staff - Faculty/Staff listings
 					student - Student listings
 		Returns:
-			JSON array of all results found for a given search
+			{str}	JSON array of all results found for a given search
 		Raises:
 			ValueError
 			ConnectionError
@@ -68,6 +78,11 @@ class Directory(object):
 			parsedvcard = vobject.readOne(vcard.content)
 			persondata = dict()
 			persondata['name'] = parsedvcard.fn.value # Extracting full name from vCard
+			# Extracting email from vCard
+			try:
+				persondata['email'] = parsedvcard.email.value
+			except:
+				persondata['email'] = None
 			# Adding person to the output array
 			output.append(persondata)
 		# JSONifying and returning the output
