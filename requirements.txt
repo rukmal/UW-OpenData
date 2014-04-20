@@ -7,3 +7,4 @@ itsdangerous==0.23
 wsgiref==0.1.2
 gunicorn
 requests==2.2.1
+vobject==0.6.6

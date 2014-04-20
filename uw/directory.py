@@ -2,6 +2,7 @@ import json
 import re
 from bs4 import BeautifulSoup
 import requests
+import vobject
 
 class Directory(object):
 	'''
@@ -63,5 +64,11 @@ class Directory(object):
 			requestdata = vcardurl.find_all('input', attrs={'type':'hidden', 'name':'dn'})
 			vcardrequest['dn'] = requestdata[0]['value']
 			vcard = requests.post(self.DIRECTORY_URL + vcardurl['action'], params=vcardrequest)
-			print vcard.content
+			# Isolating vCard, parsing using vobject
+			parsedvcard = vobject.readOne(vcard.content)
+			persondata = dict()
+			persondata['name'] = parsedvcard.fn.value # Extracting full name from vCard
+			# Adding person to the output array
+			output.append(persondata)
+		# JSONifying and returning the output
 		return json.dumps(output)
