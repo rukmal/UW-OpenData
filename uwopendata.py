@@ -42,5 +42,13 @@ def directoryget():
 		except:
 			return jsonify({'error':'Invalid request'})
 
+@app.route('/directory/search-by-name/<name>', methods=['GET'])
+def searchByName(name):
+	# Allows HTTP GET to search by name (with the following defaults)
+	# DEFAULT: Searches both databases by namer
+	result = directory.search_directory(name, 'name', 'both')
+	loadedResult = json.loads(result)
+	return json.dumps(loadedResult, indent=4)
+
 if __name__ == '__main__':
 	app.run(debug=True)
