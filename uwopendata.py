@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def hello():
 	programInfo = dict()
-	programInfo['authors'] = 'Amit Burstein [http://amitburst.me/] and Rukmal Weerawarana [http://rukmal.me/]'
+	programInfo['authors'] = 'Rukmal Weerawarana [http://rukmal.me/]'
 	programInfo['name'] = 'UW Open Data API'
 	programInfo['version'] = '1.0.0'
 	programInfo['project_url'] = 'http://uwopendata.herokuapp.com/'
