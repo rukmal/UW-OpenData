@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import json
 
 from uw import CourseCatalog
@@ -27,9 +27,18 @@ def hello():
 def courseget(code):
 	return catalog.get_course(code)
 
-@app.route('/directory/<searchquery>', methods=['GET'])
-def directoryget(searchquery):
-	return directory.search_directory(searchquery)
+@app.route('/directory/', methods=['GET', 'POST'])
+def directoryget():
+	if request.method == 'GET':
+		return 'intructions'
+	elif request.method == 'POST':
+		try:
+			name = request.form['name']
+			searchcriteria = request.form['searchcriteria']
+			database = request.form['database']
+			return directory.search_directory(name, searchcriteria, database)
+		except:
+			return jsonify({'error':'Invalid request'})
 
 if __name__ == '__main__':
 	app.run(debug=True)

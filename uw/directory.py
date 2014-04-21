@@ -14,12 +14,12 @@ class Directory(object):
 		# Note: Trailing backslash is REQUIRED
 		self.DIRECTORY_URL = 'http://washington.edu/home/peopledir/'
 
-	def search_directory(self, name, querytype, database):
+	def search_directory(self, name, searchcriteria, database):
 		'''Function to search the University of Washington directory.
 		Args:
 			name {str}
 				Name of the person
-			queryType {str}
+			searchcriteria {str}
 				Field that should be searched
 				Valid options:
 					name - Name of the person
@@ -56,7 +56,7 @@ class Directory(object):
 		# Constructing the HTTP request
 		httprequest = dict()
 		httprequest['term'] = name
-		httprequest['method'] = querytype
+		httprequest['method'] = searchcriteria
 		httprequest['whichdir'] = database
 		# Type of listing. Options: full, sum. Note: will NOT work with summary listing
 		httprequest['length'] = 'full'
