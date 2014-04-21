@@ -46,9 +46,7 @@ def directoryget():
 def searchByName(name):
 	# Allows HTTP GET to search by name (with the following defaults)
 	# DEFAULT: Searches both databases by namer
-	result = directory.search_directory(name, 'name', 'both')
-	loadedResult = json.loads(result)
-	return json.dumps(loadedResult, indent=4)
+	return directory.search_directory(name, 'name', 'both')
 
 if __name__ == '__main__':
 	app.run(debug=True)
