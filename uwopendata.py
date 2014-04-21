@@ -32,11 +32,11 @@ def courseget(code):
 @app.route('/directory/', methods=['GET', 'POST'])
 def directoryget():
 	if request.method == 'GET':
-		return 'intructions'
+		return 'instructions'
 	elif request.method == 'POST':
 		try:
 			name = request.form['name']
-			searchcriteria = request.form['searchcriteria']
+			searchcriteria = request.form['search-criteria']
 			database = request.form['database']
 			return directory.search_directory(name, searchcriteria, database)
 		except:
