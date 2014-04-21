@@ -83,13 +83,14 @@ class Directory(object):
 			except:
 				pass
 			# Extracting organization data from vCard
+			orgdata = list(parsedvcard.org.value)
 			try:
-				persondata['organization'] = parsedvcard.org.value[0]
+				persondata['organization'] = orgdata[0]
 			except:
 				pass
 			# Extracting department department info from vCard
 			try:
-				persondata['department'] = parsedvcard.org.value[1]
+				persondata['department'] = orgdata[1]
 			except:
 				pass
 			# Extracting title information from vCard
