@@ -14,14 +14,14 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def hello():
 	programInfo = dict()
-	programInfo['authors'] = 'Amit Burstein [http://amitburst.me] and Rukmal Weerawarana [http://rukmal.me]'
+	programInfo['authors'] = 'Amit Burstein [http://amitburst.me/] and Rukmal Weerawarana [http://rukmal.me/]'
 	programInfo['name'] = 'UW Open Data API'
 	programInfo['version'] = '1.0.0'
-	programInfo['project_url'] = 'http://uwopendata.herokuapp.com'
-	programInfo['source_url'] = 'http://github.com/rukmal/UW-OpenData'
+	programInfo['project_url'] = 'http://uwopendata.herokuapp.com/'
+	programInfo['source_url'] = 'http://github.com/rukmal/UW-OpenData/'
 	programInfo['description'] = 'RESTful API for (hopefully) all UW online services'
 	programInfo['license'] = 'MIT'
-	programInfo['original_author'] = 'Karan Goel [http://github.com/karan]'
+	programInfo['original_author'] = 'Karan Goel [http://github.com/karan/]'
 	return jsonify(programInfo)
 
 @app.route('/coursecatalog/<code>', methods=['GET'])
