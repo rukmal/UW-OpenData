@@ -38,7 +38,7 @@ If you want to add any new features, or improve existing ones, feel free to send
 
 ## Original Project
 
-This project was started by [Karan Goel](http://goel.im) under the [MIT license](https://github.com/karan/UW-OpenData/blob/master/LICENSE.md). For the original source code, see [Karan's profile](http://github.com/karan/UW-OpenData). Course scraping code and UW picture are the property of Karan Goel.
+[Course catalog scraping code](https://github.com/karan/UW-OpenData) and the [UW picture](https://github.com/karan/UW-CSE) are by [Karan Goel](http://www.goel.im), both under MIT License.
 
 ## Note
 
