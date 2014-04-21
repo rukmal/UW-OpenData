@@ -83,14 +83,14 @@ class Directory(object):
 			except:
 				pass
 			# Extracting organization data from vCard
-			orgdata = list(parsedvcard.org.value)
+			orgdata = parsedvcard.org.value
 			try:
-				persondata['organization'] = orgdata[0]
+				persondata['organization'] = orgdata[0:orgdata.index(';')]
 			except:
 				pass
 			# Extracting department department info from vCard
 			try:
-				persondata['department'] = orgdata[1]
+				persondata['department'] = orgdata[orgdata.index(';') + 1:]
 			except:
 				pass
 			# Extracting title information from vCard
@@ -109,7 +109,6 @@ class Directory(object):
 			except:
 				pass
 			# Adding person to the output array
-			print parsedvcard
 			output.append(persondata)
 		# JSONifying and returning the output
 		return json.dumps(output, separators=(',',':'))
