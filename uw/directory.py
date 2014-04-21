@@ -14,17 +14,6 @@ class Directory(object):
 		# Note: Trailing backslash is REQUIRED
 		self.DIRECTORY_URL = 'http://washington.edu/home/peopledir/'
 
-	def __prettifyName(self, name):
-		'''Function to prettify and standardize format of a name
-		eg: 
-		Args:
-			name {str}
-				Name of the person
-		Returns:
-			{str}	Prettified version of the input name
-		'''
-		return name.capitalize()
-
 	def search_directory(self, name, querytype, database):
 		'''Function to search the University of Washington directory.
 		Args:
@@ -51,7 +40,11 @@ class Directory(object):
 				{
 					"name": <name>,
 					"email": <email>,
-
+					"organization": <organization>,
+					"department": <department>,
+					"phone": <phone>,
+					"title": <title>,
+					"addresss": <address>
 				}
 			]
 		Raises:
@@ -67,15 +60,11 @@ class Directory(object):
 		httprequest['whichdir'] = database
 		# Type of listing. Options: full, sum. Note: will NOT work with summary listing
 		httprequest['length'] = 'full'
-
 		# Sending POST request to directory
 		data = requests.post(self.DIRECTORY_URL, params=httprequest)
-
 		# Parsing result with BeautifulSoup
 		bsdata = BeautifulSoup(data.text)
-
 		output = []
-
 		vcardurls = bsdata.find_all('form', attrs={'class':'vcard'})
 		for vcardurl in vcardurls:
 			# Constructing HTTP post request for vcards
@@ -86,13 +75,39 @@ class Directory(object):
 			# Isolating vCard, parsing using vobject
 			parsedvcard = vobject.readOne(vcard.content)
 			persondata = dict()
-			persondata['name'] = parsedvcard.fn.value # Extracting full name from vCard
+			# Extracting full name from vCard and prettifying
+			persondata['name'] = parsedvcard.fn.value.title()
 			# Extracting email from vCard
 			try:
 				persondata['email'] = parsedvcard.email.value
 			except:
 				pass
+			# Extracting organization data from vCard
+			try:
+				persondata['organization'] = parsedvcard.org.value[0]
+			except:
+				pass
+			# Extracting department department info from vCard
+			try:
+				persondata['department'] = parsedvcard.org.value[1]
+			except:
+				pass
+			# Extracting phone number information from vCard
+			try:
+				persondata['phone'] = parsedvcard.tel.value
+			except:
+				pass
+			# Extracting title information from vCard
+			try:
+				persondata['title'] = parsedvcard.title.value
+			except:
+				pass
+			# Extracting address information from vCard
+			try:
+				persondata['address'] = str(parsedvcard.adr.value).replace('\n', ';')
+			except:
+				pass
 			# Adding person to the output array
 			output.append(persondata)
 		# JSONifying and returning the output
-		return json.dumps(output)
+		return json.dumps(output, separators=(',',':'))
