@@ -35,7 +35,7 @@ def directoryget():
 		return 'instructions'
 	elif request.method == 'POST':
 		try:
-			name = request.form['name']
+			name = request.form['search']
 			searchcriteria = request.form['search-criteria']
 			database = request.form['database']
 			return directory.search_directory(name, searchcriteria, database)
