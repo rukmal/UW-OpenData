@@ -1,4 +1,3 @@
-import json
 import re
 from bs4 import BeautifulSoup
 import requests
@@ -34,8 +33,7 @@ class Directory(object):
 					staff - Faculty/Staff listings
 					student - Student listings
 		Returns:
-			{str}	JSON array of all results found for a given search.
-			The JSON array will have the following possible fields.
+			An array of Python dicts that may have the following fields.
 			[
 				{
 					"name": <name>,
@@ -112,4 +110,4 @@ class Directory(object):
 			# Adding person to the output array
 			output.append(persondata)
 		# JSONifying and returning the output
-		return json.dumps(output, separators=(',',':'))
+		return output

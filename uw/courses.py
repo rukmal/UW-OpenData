@@ -2,7 +2,6 @@ import re
 from urllib2 import urlopen, HTTPError
 from collections import defaultdict
 from itertools import chain
-import json
 
 from bs4 import BeautifulSoup
 
@@ -30,7 +29,7 @@ class CourseCatalog(object):
 		except HTTPError:
 			error = dict()
 			error['error'] = 'Code not found'
-			return json.dumps(error)
+			return error
 		
 		ps = soup.findAll('p')
 		
@@ -112,4 +111,4 @@ class CourseCatalog(object):
 		cache[code]['catalog'][code] = catalog
 		cache[code]['time'] = time.time()
 		
-		return jsonify(cache[code]['catalog'])
+		return cache[code]['catalog']

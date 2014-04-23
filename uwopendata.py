@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
+from flask.ext.restful import Resource, Api, reqparse
 import json
 
 from uw import CourseCatalog
@@ -10,43 +11,48 @@ catalog = CourseCatalog()
 directory = Directory()
 
 app = Flask(__name__)
+api = Api(app)
 
-@app.route('/', methods=['GET'])
-def hello():
-	programInfo = dict()
-	programInfo['author'] = 'Rukmal Weerawarana'
-	programInfo['author_url'] = 'http://rukmal.me/'
-	programInfo['name'] = 'UW Open Data API'
-	programInfo['version'] = '1.0.0'
-	programInfo['project_url'] = 'http://uwopendata.herokuapp.com/'
-	programInfo['source_url'] = 'http://github.com/rukmal/UW-OpenData/'
-	programInfo['description'] = 'RESTful API for (hopefully) all UW online services'
-	programInfo['license'] = 'MIT'
-	programInfo['original_author'] = 'Karan Goel [http://github.com/karan/]'
-	return jsonify(programInfo)
+class LandingPage(Resource):
+	def get(self):
+		programInfo = dict()
+		programInfo['author'] = 'Rukmal Weerawarana'
+		programInfo['author_url'] = 'http://rukmal.me/'
+		programInfo['name'] = 'UW Open Data API'
+		programInfo['version'] = '1.0.0'
+		programInfo['project_url'] = 'http://uwopendata.herokuapp.com/'
+		programInfo['source_url'] = 'http://github.com/rukmal/UW-OpenData/'
+		programInfo['description'] = 'RESTful API for (hopefully) all UW online services'
+		programInfo['license'] = 'MIT'
+		programInfo['original_author'] = 'Karan Goel [http://github.com/karan/]'
+		return programInfo
 
-@app.route('/coursecatalog/<code>', methods=['GET'])
-def courseget(code):
-	return catalog.get_course(code)
+class CourseCatalog(Resource):
+	def get(self, code):
+		return catalog.get_course(code)
 
-@app.route('/directory/', methods=['GET', 'POST'])
-def directoryget():
-	if request.method == 'GET':
+class Directory(Resource):
+	def get(self):
 		return 'instructions'
-	elif request.method == 'POST':
-		try:
-			name = request.form['search']
-			searchcriteria = request.form['search-criteria']
-			database = request.form['database']
-			return directory.search_directory(name, searchcriteria, database)
-		except:
-			return jsonify({'error':'Invalid request'})
 
-@app.route('/directory/search-by-name/<name>', methods=['GET'])
-def searchByName(name):
-	# Allows HTTP GET to search by name (with the following defaults)
-	# DEFAULT: Searches both databases by namer
-	return directory.search_directory(name, 'name', 'both')
+	def post(self):
+		args = parser.parse_args()
+		print args
+		try:
+			return directory.search_directory(args['search'], args['searchcriteria'], args['database'])
+		except:
+			return {'error':'Invalid request'}
+
+# Adding the landing page
+api.add_resource(LandingPage, '/')
+# Adding the course catalog
+api.add_resource(CourseCatalog, '/coursecatalog/<string:code>')
+# Adding the directory. Using reqparse to define the default arguments
+parser = reqparse.RequestParser()
+parser.add_argument('search', type=str, help='Search string to be run in the database')
+parser.add_argument('searchcriteria', type=str, help='Criteria of the search. Possible options: name, dept, mail, box or phone')
+parser.add_argument('database', type=str, help='Databse to search. Possible options: student, staff, both')
+api.add_resource(Directory, '/directory/')
 
 if __name__ == '__main__':
 	app.run(debug=True)
