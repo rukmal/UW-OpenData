@@ -1,6 +1,6 @@
 # UW Open Data
 
-![UW Open Data](https://raw.github.com/karan/UW-OpenData/master/UW.png)
+![UW Open Data logo](./bin/uwopendata_logo.png)
 
 A comprehensive, open Python API for online services at the [University of Washington](http://washington.edu). This includes, but is not limited to the Course Catalog and Directory.
 
