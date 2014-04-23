@@ -8,3 +8,4 @@ wsgiref==0.1.2
 gunicorn
 requests==2.2.1
 vobject==0.6.6
+flask-restful-swagger==0.10
