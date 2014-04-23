@@ -38,7 +38,7 @@ If you want to add any new features, or improve existing ones, feel free to send
 
 ## Original Project
 
-[Course catalog scraping code](https://github.com/karan/UW-OpenData) and the [UW picture](https://github.com/karan/UW-CSE) are by [Karan Goel](http://www.goel.im), both under MIT License.
+[Course catalog scraping code](https://github.com/karan/UW-OpenData) and the [UW picture](https://github.com/karan/UW-CSE) (old logo) are by [Karan Goel](http://www.goel.im), both under MIT License.
 
 ## Note
 
