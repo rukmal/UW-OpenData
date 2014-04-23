@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from flask import Flask, jsonify
+from flask import Flask
 from flask.ext.restful import Resource, Api, reqparse
-import json
-
+from flask_restful_swagger import swagger
+# uw package imports
 from uw import CourseCatalog
 from uw import Directory
 
@@ -11,7 +11,7 @@ catalog = CourseCatalog()
 directory = Directory()
 
 app = Flask(__name__)
-api = Api(app)
+api = swagger.docs(Api(app))
 
 class LandingPage(Resource):
 	def get(self):
